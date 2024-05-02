@@ -72,23 +72,23 @@
                 background-color: #555;
             }
     </style>
+    <script src="../apis/signup.js" defer></script>
 </head>
 <body>
     <header>
         <div>
             <span>Brain Tumor</span>
         </div>
-        <div>
-            <a href="first.html">Home</a>
-            <a href="Login.html">Login</a>
+        <div id="navLinks">
+            <a href="./first.html">Home</a>
+            <a href="./login.html" id="loginLink">Login</a>
+            <a href="#" id="logoutLink" style="display:none;">Logout</a>
         </div>
     </header>
 
     <section>
         <h1>Create Account</h1>
-
-        <form id="signupForm" action="signup.php" method="POST">
-        
+        <form id="signupForm">
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName" required>
 
@@ -103,8 +103,6 @@
 
             <input type="submit" value="Signup">
         </form>
-
-       
     </section>
 </body>
 </html>

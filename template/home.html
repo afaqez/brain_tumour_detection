@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload MRI Image - Brain Tumor Detection</title>
@@ -58,7 +58,6 @@
 
       form {
         width: 100%;
-        /* Take the full width of the section */
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -74,7 +73,6 @@
 
       input {
         width: calc(100% - 20px);
-        /* Adjusted width to account for padding */
         padding: 10px;
         margin-bottom: 16px;
         box-sizing: border-box;
@@ -92,42 +90,65 @@
         background-color: #555;
       }
 
-      img.preview {
-        max-width: 100%;
-        height: auto;
-        margin-top: 20px;
-        border-radius: 8px;
-        display: block;
-        /* Make the image centered */
-        margin-left: auto;
-        margin-right: auto;
+      .error-message {
+        color: red;
+        font-size: 16px;
+        margin-top: 10px;
+        display: none; 
       }
     </style>
-  </head>
-
-  <body>
+</head>
+<body>
     <header>
       <div>
         <span>Brain Tumor</span>
       </div>
       <div>
         <a href="settings.html">Settings</a>
-        <a href="#" onclick="logout()">Logout</a>
+        <a href="#" id="authLink">Login/Signup</a>
       </div>
     </header>
 
     <section>
       <h1>Upload MRI Image</h1>
-      <!-- Specify the Flask route for form submission -->
-      <form action="/" method="post" enctype="multipart/form-data">
+      <form id="uploadForm" onsubmit="return validateForm()">
         <label for="mriImage">Choose MRI Image (JPEG only):</label>
-        <input type="file" id="mriImage" name="mriImage" accept=".jpeg, .jpg" />
+        <input type="file" id="mriImage" name="mriImage" accept=".jpeg, .jpg" disabled />
 
-        <input type="submit" value="Upload" />
+        <input type="submit" value="Upload" disabled />
+        <div class="error-message" id="errorMessage">Please login or signup first.</div>
       </form>
     </section>
 
     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('TOKEN');
+        const uploadButton = document.getElementById('uploadForm').querySelector('input[type="submit"]');
+        const fileInput = document.getElementById('mriImage');
+        const authLink = document.getElementById('authLink');
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (token) {
+          uploadButton.disabled = false;
+          fileInput.disabled = false;
+          authLink.textContent = 'Logout';
+          authLink.onclick = function() {
+            localStorage.removeItem('TOKEN');
+            window.location.href = 'login.html';
+          };
+        } else {
+          uploadButton.disabled = true;
+          fileInput.disabled = true;
+          authLink.textContent = 'Login/Signup';
+          authLink.onclick = function() {
+            window.location.href = 'login.html';
+          };
+          uploadButton.addEventListener('click', function() {
+            errorMessage.style.display = 'block'; 
+          });
+        }
+      });
+
       function validateForm() {
         var allowedExtensions = /(\.jpg|\.jpeg)$/i;
         var uploadedFile = document.getElementById("mriImage").value;
@@ -136,17 +157,8 @@
           alert("Please upload a JPEG image.");
           return false;
         }
-        // Continue with the upload process if the file is a JPEG image
         return true;
       }
-
-      function logout() {
-        var confirmLogout = confirm("Are you sure you want to logout?");
-
-        if (confirmLogout) {
-          window.location.href = "login.html";
-        }
-      }
     </script>
-  </body>
+</body>
 </html>
