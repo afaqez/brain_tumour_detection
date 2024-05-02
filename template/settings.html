@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password - Brain Tumor Detection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('brain.png') center/cover fixed no-repeat; 
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header div {
+            display: flex;
+            align-items: center;
+        }
+
+        header span {
+            margin-right: auto; 
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #fff;
+            background-color: rgba(51, 51, 51, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 100%; /* Take the full width of the section */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input {
+            width: calc(100% - 20px); 
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <span>Brain Tumor</span>
+        </div>
+        <div>
+            <a href="Home.html">Home</a>
+        </div>
+    </header>
+
+    <section>
+        <h1>Change Password</h1>
+
+        <form id="changePasswordForm" onsubmit="return validateForm()">
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword" name="currentPassword" required>
+
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+
+            <label for="confirmNewPassword">Confirm New Password:</label>
+            <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+
+            <input type="submit" value="Change Password">
+        </form>
+
+        <script>
+            function validateForm() {
+                alert("Password changed successfully!");
+                return false; 
+            }
+        </script>
+    </section>
+</body>
+</html>
