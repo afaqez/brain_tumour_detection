@@ -1,108 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup - Brain Tumor Detection</title>
     <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                margin: 0;
-                padding: 0;
-                background: url('brain.png') center/cover fixed no-repeat; 
-            }
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url("brain.png") center/cover fixed no-repeat;
+      }
 
-            header {
-                background-color: rgba(51, 51, 51, 0.8);
-                color: #fff;
-                padding: 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
+      header {
+        background-color: rgba(51, 51, 51, 0.8);
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-            header a {
-                color: #fff;
-                text-decoration: none;
-                margin-left: 10px;
-            }
+      header a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+      }
 
-            section {
-                text-align: center;
-                margin-top: 50px;
-            }
+      section {
+        text-align: center;
+        margin-top: 50px;
+      }
 
-            h1 {
-                color: #333;
-                font-size: 36px;
-            }
+      h1 {
+        color: #333;
+        font-size: 36px;
+      }
 
-            form {
-                width: 300px;
-                margin: auto;
-                background-color: rgba(255, 255, 255, 0.8);
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+      form {
+        width: 300px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-            label {
-                display: block;
-                margin-bottom: 8px;
-                color: #333;
-                font-weight: bold;
-            }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: bold;
+      }
 
-            input {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 16px;
-                box-sizing: border-box;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-            input[type="submit"] {
-                background-color: #333;
-                color: #fff;
-                cursor: pointer;
-            }
+      input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+      }
 
-            input[type="submit"]:hover {
-                background-color: #555;
-            }
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
     </style>
     <script src="../apis/signup.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div>
-            <span>Brain Tumor</span>
-        </div>
-        <div id="navLinks">
-            <a href="./first.html">Home</a>
-            <a href="./login.html" id="loginLink">Login</a>
-            <a href="#" id="logoutLink" style="display:none;">Logout</a>
-        </div>
+      <div>
+        <span>Brain Tumor</span>
+      </div>
+      <div id="navLinks">
+        <a href="./first.html">Home</a>
+        <a href="./login.html" id="loginLink">Login</a>
+        <a href="#" id="logoutLink" style="display: none">Logout</a>
+      </div>
     </header>
 
     <section>
-        <h1>Create Account</h1>
-        <form id="signupForm">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
+      <h1>Create Account</h1>
+      <form id="signupForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required />
 
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required />
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
 
-            <label for="password">Create Password:</label>
-            <input type="password" id="password" name="password" required>
+        <label for="password">Create Password:</label>
+        <input type="password" id="password" name="password" required />
 
-            <input type="submit" value="Signup">
-        </form>
+        <input type="submit" value="Signup" />
+      </form>
     </section>
-</body>
+  </body>
 </html>

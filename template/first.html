@@ -1,72 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brain Tumor Detection</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            background-image: url('brain.png'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        background-image: url("brain.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        header div {
-            display: flex;
-            align-items: center;
-        }
+      header div {
+        display: flex;
+        align-items: center;
+      }
 
-        header a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 10px;
-        }
+      header a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+      }
 
-        section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-        h1 {
-            color: #333;
-            font-size: 36px;
-        }
-        
+      h1 {
+        color: #333;
+        font-size: 36px;
+      }
     </style>
     <script src="../apis/home.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div>
-            <span>Brain Tumor</span>
-        </div>
-        <div id="navLinks">
-            <a href="./home.html" id="homeLink">Home</a>
-            <a href="./signup.html" id="signupLink">Signup</a>
-            <a href="./login.html" id="loginLink">Login</a>
-            <a href="#" id="logoutLink" style="display:none;">Logout</a>
-        </div>
+      <div>
+        <span>Brain Tumor</span>
+      </div>
+      <div id="navLinks">
+        <a href="{{ url_for('signup') }}">Signup</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="#" id="logoutLink" style="display: none">Logout</a>
+      </div>
     </header>
 
     <section>
-        <h1>Detection of Brain Tumor Using MR Images</h1>
+      <h1>Detection of Brain Tumor Using MR Images</h1>
     </section>
-</body>
+  </body>
 </html>

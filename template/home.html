@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload MRI Image - Brain Tumor Detection</title>
@@ -94,57 +94,68 @@
         color: red;
         font-size: 16px;
         margin-top: 10px;
-        display: none; 
+        display: none;
       }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
       <div>
         <span>Brain Tumor</span>
       </div>
       <div>
         <a href="settings.html">Settings</a>
-        <a href="#" id="authLink">Login/Signup</a>
+        <a href="login.html" id="authLink">Login/Signup</a>
       </div>
     </header>
 
     <section>
       <h1>Upload MRI Image</h1>
-      <form id="uploadForm" onsubmit="return validateForm()">
+      <form id="uploadForm" onsubmit="uploadImage(event)">
         <label for="mriImage">Choose MRI Image (JPEG only):</label>
-        <input type="file" id="mriImage" name="mriImage" accept=".jpeg, .jpg" disabled />
+        <input
+          type="file"
+          id="mriImage"
+          name="mriImage"
+          accept=".jpeg, .jpg"
+          required
+        />
 
-        <input type="submit" value="Upload" disabled />
-        <div class="error-message" id="errorMessage">Please login or signup first.</div>
+        <input type="submit" value="Upload" />
+        <div class="error-message" id="errorMessage">
+          Please login or signup first.
+        </div>
       </form>
+      <p id="result"></p>
     </section>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const token = localStorage.getItem('TOKEN');
-        const uploadButton = document.getElementById('uploadForm').querySelector('input[type="submit"]');
-        const fileInput = document.getElementById('mriImage');
-        const authLink = document.getElementById('authLink');
-        const errorMessage = document.getElementById('errorMessage');
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("TOKEN");
+        const uploadButton = document
+          .getElementById("uploadForm")
+          .querySelector('input[type="submit"]');
+        const fileInput = document.getElementById("mriImage");
+        const authLink = document.getElementById("authLink");
+        const errorMessage = document.getElementById("errorMessage");
 
         if (token) {
           uploadButton.disabled = false;
           fileInput.disabled = false;
-          authLink.textContent = 'Logout';
-          authLink.onclick = function() {
-            localStorage.removeItem('TOKEN');
-            window.location.href = 'login.html';
+          authLink.textContent = "Logout";
+          authLink.onclick = function () {
+            localStorage.removeItem("TOKEN");
+            window.location.href = "login.html";
           };
         } else {
           uploadButton.disabled = true;
           fileInput.disabled = true;
-          authLink.textContent = 'Login/Signup';
-          authLink.onclick = function() {
-            window.location.href = 'login.html';
+          authLink.textContent = "Login/Signup";
+          authLink.onclick = function () {
+            window.location.href = "login.html";
           };
-          uploadButton.addEventListener('click', function() {
-            errorMessage.style.display = 'block'; 
+          uploadButton.addEventListener("click", function () {
+            errorMessage.style.display = "block";
           });
         }
       });
@@ -159,6 +170,44 @@
         }
         return true;
       }
+
+      function uploadImage(event) {
+        event.preventDefault();
+
+        const fileInput = document.getElementById("mriImage");
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append("mriImage", file);
+
+        fetch("http://localhost:5000/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Handle response data
+            console.log("Response from server:", data);
+            // Update the HTML content based on the response
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = `
+            <p>Filename: ${data.filename}</p>
+            <p>Predicted class from VGG model: ${data.predicted_class_vgg}</p>
+            <p>Predicted class from InceptionV3 model: ${data.predicted_class_inception_v3}</p>
+            <p>Predicted class from CNN model: ${data.predicted_class_cnn}</p>
+            <p>Predicted class from ResNet model: ${data.predicted_class_resnet}</p>
+        `;
+          })
+          .catch((error) => {
+            // Handle error
+            console.error("Error:", error);
+          });
+      }
     </script>
-</body>
+  </body>
 </html>

@@ -148,7 +148,7 @@
 #     app.run(debug=True)
 
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, url_for, redirect
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
@@ -158,9 +158,15 @@ import cv2
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import Flatten, Dropout, Dense
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+import requests
+
 
 
 app = Flask(__name__, template_folder='template')
+
+
 
 # Load the trained models
 vgg_model = load_model('models/vgg.h5')
@@ -197,10 +203,68 @@ def preprocess_image_resnet(image_data):
     return image
 
 @app.route('/', methods=['GET'])
-def hello_world():
+def display_first_page():
     return render_template('home.html')
 
-@app.route('/', methods=['POST'])
+# Route to handle signup form submission
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         email = request.form['email']
+#         password = request.form['password']
+#         role = 'user'
+
+#         signup_data = {
+#             "username": username,
+#             "email": email,
+#             "password": password,
+#             "role": role
+#         }
+
+#         signup_url = 'https://fitnessapp-666y.onrender.com/api/signup'
+#         response = requests.post(signup_url, json=signup_data)
+
+#         if response.status_code == 200:
+#             session['username'] = username  # Store username in session
+#             return redirect(url_for('hello_world'))
+#         else:
+#             error_message = 'Signup failed. Please try again.'
+#             return render_template('signup.html', error=error_message)
+
+#     return render_template('signup.html')
+
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         email = request.form['email']
+#         password = request.form['password']
+
+#         login_data = {
+#             "email": email,
+#             "password": password
+#         }
+
+#         login_url = 'https://fitnessapp-666y.onrender.com/api/login'
+#         response = requests.post(login_url, json=login_data)
+
+#         if response.status_code == 200:
+#             session['email'] = email  # Store email in session
+#             return redirect(url_for('home'))
+#         else:
+#             error_message = 'Login failed. Please check your credentials.'
+#             return render_template('login.html', error=error_message)
+
+#     return render_template('login.html')
+
+# @app.route('/logout')
+# def logout():
+#     session.pop('username', None)  # Remove username from session
+#     session.pop('email', None)  # Remove email from session
+#     return redirect(url_for('hello_world'))
+
+
+@app.route('/home', methods=['POST'])
 def predict():
     mriImage = request.files['mriImage']
     image_path = 'static/uploads/' + mriImage.filename
