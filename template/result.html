@@ -1,147 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Result - Brain Tumor Detection</title>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        background-image: url("brain.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Result - Brain Tumor Detection</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      background-image: url("brain.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header div {
+      display: flex;
+      align-items: center;
+    }
+    header span {
+      margin-right: auto;
+    }
+    header a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    section {
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      font-size: 36px;
+    }
+    p {
+      color: #555;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .result-container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgb(195, 226, 255);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 500px;
+      margin: 0 auto 20px;
+    }
+    .result-image {
+      width: 200px;
+      height: 200px;
+      background-color: #c2bdbd4f;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 0 auto 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span>Brain Tumor</span>
+    </div>
+    <div>
+      <a href="home.html">Home</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </header>
 
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+  <section>
+    <h1>Brain Tumor Detection</h1>
+    <h1>Result</h1>
+    <p>Here's the result of testing using Image Processing.</p>
 
-      header div {
-        display: flex;
-        align-items: center;
-      }
-
-      header span {
-        margin-right: auto;
-      }
-
-      header a {
-        color: #fff;
-        text-decoration: none;
-        margin-left: 10px;
-      }
-
-      section {
-        text-align: center;
-        padding: 20px;
-      }
-
-      h1 {
-        color: #333;
-        font-size: 36px;
-      }
-
-      p {
-        color: #555;
-        font-size: 18px;
-        margin-top: 20px;
-      }
-      .result-container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: rgb(195, 226, 255);
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        width: 500px;
-        margin: 0 auto 20px;
-      }
-
-      .result-image {
-        width: 200px;
-        height: 200px;
-        background-color: #c2bdbd4f;
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 0 auto 20px; /* Center the image horizontally */
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div>
-        <span>Brain Tumor</span>
+    <div class="result-container">
+      <div class="result-image">
+        <!-- Placeholder for the uploaded image -->
+        <img id="uploadedImage" src="" alt="Uploaded Image" />
       </div>
-      <div>
-        <a href="Home.html">Home</a>
-        <a href="#" onclick="logout()">Logout</a>
-      </div>
-    </header>
 
-    <section>
-      <h1>Brain Tumor Detection</h1>
-      <h1>Result</h1>
-      <p>Here's the result of testing using Image Processing.</p>
+      <!-- Placeholder for the prediction results -->
+      <p id="vggPrediction" class="prediction-results"></p>
+      <p id="inceptionPrediction" class="prediction-results"></p>
+      <p id="cnnPrediction" class="prediction-results"></p>
+      <p id="resnetPrediction" class="prediction-results"></p>
 
-      <div class="result-container">
-        <div class="result-image">
-          <!-- Display the uploaded image -->
-          <img src="{{ filename }}" alt="Uploaded Image" />
-        </div>
+      <!-- Link to performance analysis -->
+      <a href="performance-analysis.html" class="performance-analysis-link">Performance Analysis</a>
+    </div>
+  </section>
 
-        <!-- Display the prediction results -->
-        {% if predicted_class_vgg %}
-        <p class="prediction-results">
-          VGG Model Predictions results:
-          <br />
-          Brain Tumor Type: {{ predicted_class_vgg }}
-        </p>
-        {% endif %} {% if predicted_class_inception_v3 %}
-        <p class="prediction-results">
-          InceptionV3 Model Predictions results:
-          <br />
-          Brain Tumor Type: {{ predicted_class_inception_v3 }}
-        </p>
-        {% endif %} {% if predicted_class_cnn is not none %}
-        <p class="prediction-results">
-          CNN Model Predictions results:
-          <br />
-          Brain Tumor Type: {{ predicted_class_cnn }}
-        </p>
-        {% endif %} {% if predicted_class_resnet %}
-        <p class="prediction-results">
-          ResNet Model Predictions results:
-          <br />
-          Brain Tumor Type: {{ predicted_class_resnet }}
-        </p>
-        {% endif %}
-
-        <!-- You can add more details or links here if needed -->
-        <a href="performance-analysis.html" class="performance-analysis-link"
-          >Performance Analysis</a
-        >
-      </div>
-    </section>
-
-    <script>
-      function logout() {
-        var confirmLogout = confirm("Are you sure you want to logout?");
-        if (confirmLogout) {
-          window.location.href = "login.html";
-        }
+  <script>
+    function logout() {
+      var confirmLogout = confirm("Are you sure you want to logout?");
+      if (confirmLogout) {
+        window.location.href = "login.html";
       }
-    </script>
-  </body>
+    }
+
+    function checkResult() {
+      fetch('../result.txt')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('uploadedImage').src = '../' + data.filename;
+          document.getElementById('vggPrediction').textContent = "VGG Model Predictions results: Brain Tumor Type: " + data.predicted_class_vgg;
+          document.getElementById('inceptionPrediction').textContent = "InceptionV3 Model Predictions results: Brain Tumor Type: " + data.predicted_class_inception_v3;
+          document.getElementById('cnnPrediction').textContent = "CNN Model Predictions results: Brain Tumor Type: " + data.predicted_class_cnn;
+          document.getElementById('resnetPrediction').textContent = "ResNet Model Predictions results: Brain Tumor Type: " + data.predicted_class_resnet;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    checkResult();
+  </script>
+</body>
 </html>
