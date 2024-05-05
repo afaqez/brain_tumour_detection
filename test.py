@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, url_for, redirect, json
+from flask import Flask, render_template, request, session, url_for, redirect, json, jsonify
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
@@ -11,8 +11,13 @@ from tensorflow.keras.layers import Flatten, Dropout, Dense
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='template')
+CORS(app)  
+
+app = Flask(__name__)
+CORS(app, resources={r"/upload": {"origins": "*"}})  
 
 # Load the trained models
 vgg_model = load_model('models/vgg.h5')
@@ -48,41 +53,37 @@ def preprocess_image_resnet(image_data):
     image = np.array(image) / 255.0
     return image
 
-# @app.route('/', methods=['GET'])
-# def display_first_page():
-#     return render_template('home.html')
-
 @app.route('/upload', methods=['POST'])
 def predict():
+    print("Received request at /upload endpoint")  
+
+    if 'mriImage' not in request.files:
+        print("No file found in the request")  
+        return jsonify({'error': 'No file uploaded'})
+
     mriImage = request.files['mriImage']
     image_path = 'static/uploads/' + mriImage.filename
     mriImage.save(image_path)
 
-    # Read the uploaded image
     with open(image_path, 'rb') as f:
         image_data = f.read()
 
-    # Preprocess the image for VGG model
     preprocessed_image_vgg = preprocess_image_vgg(image_data)
     prediction_vgg = vgg_model.predict(np.expand_dims(preprocessed_image_vgg, axis=0))
     predicted_class_vgg = np.argmax(prediction_vgg)
 
-    # Preprocess the image for InceptionV3 model
     preprocessed_image_inception_v3 = preprocess_image_inception_v3(image_data)
     prediction_inception_v3 = inception_model.predict(np.expand_dims(preprocessed_image_inception_v3, axis=0))
     predicted_class_inception_v3 = np.argmax(prediction_inception_v3)
 
-    # Preprocess the image for CNN model
     preprocessed_image_cnn = preprocess_image_cnn(image_data)
     prediction_cnn = cnn_model.predict(np.expand_dims(preprocessed_image_cnn, axis=0))
     predicted_class_cnn = np.argmax(prediction_cnn)
-    
-    # Preprocess the image for ResNet model
+
     preprocessed_image_resnet = preprocess_image_resnet(image_data)
     prediction_resnet = resnet_model.predict(np.expand_dims(preprocessed_image_resnet, axis=0))
     predicted_class_resnet = np.argmax(prediction_resnet)
 
-    # Create a dictionary with prediction results
     prediction_data = {
         'filename': image_path,
         'predicted_class_vgg': int(predicted_class_vgg),
@@ -91,7 +92,12 @@ def predict():
         'predicted_class_resnet': int(predicted_class_resnet)
     }
 
-    # Return prediction data as JSON response
+    print("Prediction data:", prediction_data)  
+
+    # Save prediction data to result.txt, clearing the file first
+    with open('result.txt', 'w') as file:
+        file.write(json.dumps(prediction_data))
+
     return jsonify(prediction_data)
 
 if __name__ == '__main__':

@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     logoutLink.addEventListener('click', function(event) {
         event.preventDefault();
         localStorage.removeItem('TOKEN');
-        window.location.href = '../template/login.html'; 
+        // window.location.href = '../template/login.html'; 
     });
 });
