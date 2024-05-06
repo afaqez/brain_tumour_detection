@@ -54,7 +54,8 @@
       section {
         text-align: center;
         padding: 20px;
-        margin-top: 60px; /* Adjusted to provide space below the fixed header */
+        margin-top: 300px;
+        /* Adjusted to provide space below the fixed header */
       }
 
       h1 {
@@ -77,22 +78,34 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .modelData,
+      .modelName {
+        display: flex;
+        flex-direction: row;
       }
 
       .chart-container {
-        width: 80%; /* Adjust the width as needed */
+        width: 80%;
+        /* Adjust the width as needed */
         margin-top: 20px;
       }
 
       .chart-image {
-        width: 100%; /* Make the chart image fill its container */
-        max-width: 800px; /* Set a maximum width if necessary */
-        height: auto; /* Maintain the aspect ratio */
+        width: 100%;
+        /* Make the chart image fill its container */
+        max-width: 800px;
+        /* Set a maximum width if necessary */
+        height: auto;
+        /* Maintain the aspect ratio */
         border-radius: 8px;
         overflow: hidden;
       }
     </style>
   </head>
+
   <body>
     <header>
       <div>
@@ -112,26 +125,81 @@
 
       <div class="result-container">
         <!-- Placeholder content for performance metrics -->
-        <p>Accuracy: 95%</p>
-        <p>Precision: 90%</p>
-        <p>Recall: 92%</p>
-        <p>F-Measure: 91%</p>
+        <div class="modelName">
+          <h3>VGG-Model</h3>
+        </div>
+        <div class="modelData">
+          <p>Accuracy: 85.82%</p>
+          <p>Precision: 27%</p>
+          <p>Recall: 27%</p>
+          <p>F-Measure: 25%</p>
 
-        <!-- Placeholder content for confusion matrix -->
-        <p>Confusion Matrix:</p>
-        <pre>
-                TP: 150   FP: 10
-                FN: 8     TN: 182
-            </pre
-        >
+          <!-- Placeholder content for confusion matrix -->
+          <p>Confusion Matrix:</p>
+          <pre>
+                  TP: 150   FP: 10
+                  FN: 8     TN: 182
+          </pre>
+        </div>
+      </div>
 
-        <!-- Placeholder content for the pie chart -->
-        <div class="chart-container">
-          <img
-            class="chart-image"
-            src="path-to-pie-chart-image.jpg"
-            alt="Brain Tumor Detection Pie Chart"
-          />
+      <div class="result-container">
+        <!-- Placeholder content for performance metrics -->
+        <div class="modelName">
+          <h3>InceptionV3-Model</h3>
+        </div>
+        <div class="modelData">
+          <p>Accuracy: 93.73%</p>
+          <p>Precision: 74%</p>
+          <p>Recall: 64%</p>
+          <p>F-Measure: 62%</p>
+
+          <!-- Placeholder content for confusion matrix -->
+          <p>Confusion Matrix:</p>
+          <pre>
+                  TP: 150   FP: 10
+                  FN: 8     TN: 182
+          </pre>
+        </div>
+      </div>
+
+      <div class="result-container">
+        <!-- Placeholder content for performance metrics -->
+        <div class="modelName">
+          <h3>CNN-Model</h3>
+        </div>
+        <div class="modelData">
+          <p>Accuracy: 91.88%</p>
+          <p>Precision: 74%</p>
+          <p>Recall: 64%</p>
+          <p>F-Measure: 62%</p>
+
+          <!-- Placeholder content for confusion matrix -->
+          <p>Confusion Matrix:</p>
+          <pre>
+                  TP: 150   FP: 10
+                  FN: 8     TN: 182
+          </pre>
+        </div>
+      </div>
+
+      <div class="result-container">
+        <!-- Placeholder content for performance metrics -->
+        <div class="modelName">
+          <h3>ResNet-Model</h3>
+        </div>
+        <div class="modelData">
+          <p>Accuracy: 99.88%</p>
+          <p>Precision: 99.88%</p>
+          <p>Recall: 99.88%</p>
+          <p>F-Measure: 74.91%</p>
+
+          <!-- Placeholder content for confusion matrix -->
+          <p>Confusion Matrix:</p>
+          <pre>
+                  TP: 150   FP: 10
+                  FN: 8     TN: 182
+          </pre>
         </div>
       </div>
     </section>

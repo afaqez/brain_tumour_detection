@@ -1,1 +1,1 @@
-{"filename": "static/uploads/image(20).jpg", "predicted_class_cnn": 0, "predicted_class_inception_v3": 1, "predicted_class_resnet": 3, "predicted_class_vgg": 2}
+{"filename": "static/uploads/image(23).jpg", "predicted_class_cnn": 0, "predicted_class_inception_v3": 3, "predicted_class_resnet": 3, "predicted_class_vgg": 3}

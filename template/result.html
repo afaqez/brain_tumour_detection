@@ -1,133 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Result - Brain Tumor Detection</title>
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-      background-image: url("brain.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
-    }
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header div {
-      display: flex;
-      align-items: center;
-    }
-    header span {
-      margin-right: auto;
-    }
-    header a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 10px;
-    }
-    section {
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #333;
-      font-size: 36px;
-    }
-    p {
-      color: #555;
-      font-size: 18px;
-      margin-top: 20px;
-    }
-    .result-container {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: rgb(195, 226, 255);
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 500px;
-      margin: 0 auto 20px;
-    }
-    .result-image {
-      width: 200px;
-      height: 200px;
-      background-color: #c2bdbd4f;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 0 auto 20px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div>
-      <span>Brain Tumor</span>
-    </div>
-    <div>
-      <a href="home.html">Home</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </div>
-  </header>
-
-  <section>
-    <h1>Brain Tumor Detection</h1>
-    <h1>Result</h1>
-    <p>Here's the result of testing using Image Processing.</p>
-
-    <div class="result-container">
-      <div class="result-image">
-        <!-- Placeholder for the uploaded image -->
-        <img id="uploadedImage" src="" alt="Uploaded Image" />
-      </div>
-
-      <!-- Placeholder for the prediction results -->
-      <p id="vggPrediction" class="prediction-results"></p>
-      <p id="inceptionPrediction" class="prediction-results"></p>
-      <p id="cnnPrediction" class="prediction-results"></p>
-      <p id="resnetPrediction" class="prediction-results"></p>
-
-      <!-- Link to performance analysis -->
-      <a href="performance-analysis.html" class="performance-analysis-link">Performance Analysis</a>
-    </div>
-  </section>
-
-  <script>
-    function logout() {
-      var confirmLogout = confirm("Are you sure you want to logout?");
-      if (confirmLogout) {
-        window.location.href = "login.html";
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result - Brain Tumor Detection</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        background-image: url("brain.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
       }
-    }
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header div {
+        display: flex;
+        align-items: center;
+      }
+      header span {
+        margin-right: auto;
+      }
+      header a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+      }
+      section {
+        text-align: center;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+        font-size: 36px;
+      }
+      p {
+        color: #555;
+        font-size: 18px;
+        margin-top: 20px;
+      }
+      .result-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(195, 226, 255);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 500px;
+        margin: 0 auto 20px;
+      }
+      .result-image img {
+        width: 200px;
+        height: 200px;
+        background-color: #c2bdbd4f;
+        border-radius: 8px;
+        object-fit: fill;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <span>Brain Tumor</span>
+      </div>
+      <div>
+        <a href="home.html">Home</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </header>
 
-    function checkResult() {
-      fetch('../result.txt')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('uploadedImage').src = '../' + data.filename;
-          document.getElementById('vggPrediction').textContent = "VGG Model Predictions results: Brain Tumor Type: " + data.predicted_class_vgg;
-          document.getElementById('inceptionPrediction').textContent = "InceptionV3 Model Predictions results: Brain Tumor Type: " + data.predicted_class_inception_v3;
-          document.getElementById('cnnPrediction').textContent = "CNN Model Predictions results: Brain Tumor Type: " + data.predicted_class_cnn;
-          document.getElementById('resnetPrediction').textContent = "ResNet Model Predictions results: Brain Tumor Type: " + data.predicted_class_resnet;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
+    <section>
+      <h1>Brain Tumor Detection</h1>
+      <h1>Result</h1>
+      <p>Here's the result of testing using Image Processing.</p>
 
-    checkResult();
-  </script>
-</body>
+      <div class="result-container">
+        <div class="result-image">
+          <!-- Placeholder for the uploaded image -->
+          <img id="uploadedImage" src="" alt="Uploaded Image" />
+        </div>
+
+        <!-- Placeholder for the prediction results -->
+        <p id="vggPrediction" class="prediction-results"></p>
+        <p id="inceptionPrediction" class="prediction-results"></p>
+        <p id="cnnPrediction" class="prediction-results"></p>
+        <p id="resnetPrediction" class="prediction-results"></p>
+
+        <!-- Link to performance analysis -->
+        <a href="performance-analysis.html" class="performance-analysis-link"
+          >Performance Analysis</a
+        >
+      </div>
+    </section>
+
+    <script>
+      function logout() {
+        var confirmLogout = confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+          window.location.href = "login.html";
+        }
+      }
+
+      function checkResult() {
+        fetch("../result.txt")
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("uploadedImage").src =
+              "../" + data.filename;
+            // For VGG Model
+            if (data.predicted_class_vgg == 0) {
+              document.getElementById("vggPrediction").textContent =
+                "VGG -> " + "Gliomia";
+            } else if (data.predicted_class_vgg === 1) {
+              document.getElementById("vggPrediction").textContent =
+                "VGG -> " + "Meningioma";
+            } else if (data.predicted_class_vgg === 2) {
+              document.getElementById("vggPrediction").textContent =
+                "VGG -> " + "No Tumor";
+            } else if (data.predicted_class_vgg === 3) {
+              document.getElementById("vggPrediction").textContent =
+                "VGG -> " + "Pituitary";
+            }
+
+            // For ResNet Model
+            if (data.predicted_class_resnet == 0) {
+              document.getElementById("resnetPrediction").textContent =
+                "Resnet -> " + "No Tumor";
+            } else if (data.predicted_class_resnet == 1) {
+              document.getElementById("resnetPrediction").textContent =
+                "Resnet -> " + "Glioma";
+            } else if (data.predicted_class_resnet == 2) {
+              document.getElementById("resnetPrediction").textContent =
+                "Resnet -> " + "Pituitary";
+            } else if (data.predicted_class_resnet == 3) {
+              document.getElementById("resnetPrediction").textContent =
+                "Resnet -> " + "Meningioma";
+            }
+
+            // For CNN Model
+            if (data.predicted_class_cnn == 0) {
+              document.getElementById("cnnPrediction").textContent =
+                "CNN -> " + "Glioma";
+            } else if (data.predicted_class_cnn == 1) {
+              document.getElementById("cnnPrediction").textContent =
+                "CNN -> " + "Meningioma";
+            } else if (data.predicted_class_cnn == 2) {
+              document.getElementById("cnnPrediction").textContent =
+                "CNN -> " + "No Tumor";
+            } else if (data.predicted_class_cnn == 3) {
+              document.getElementById("cnnPrediction").textContent =
+                "CNN -> " + "Pituitary";
+            }
+
+            // For InceptionV3 Model
+            if (data.predicted_class_inception_v3 == 0) {
+              document.getElementById("inceptionPrediction").textContent =
+                "Inception -> " + "Glioma";
+            } else if (data.predicted_class_inception_v3 == 1) {
+              document.getElementById("inceptionPrediction").textContent =
+                "Inception -> " + "Meningioma";
+            } else if (data.predicted_class_inception_v3 == 2) {
+              document.getElementById("inceptionPrediction").textContent =
+                "Inception -> " + "No Tumor";
+            } else if (data.predicted_class_inception_v3 == 3) {
+              document.getElementById("inceptionPrediction").textContent =
+                "Inception -> " + "Pituitary";
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      checkResult();
+    </script>
+  </body>
 </html>
