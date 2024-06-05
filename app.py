@@ -27,30 +27,32 @@ resnet_model = load_model('models/resnet_brain_tumor.h5')
 # Preprocess image for VGG model
 def preprocess_image_vgg(image_data):
     image = Image.open(io.BytesIO(image_data))
-    image = image.resize((32, 32))
-    image = np.array(image) / 255.0
+    image = image.resize((224, 224))  # Resize the image to (224, 224)
+    image = np.array(image) / 255.0  # Normalize the image
     return image
+
     
 
 # Preprocess image for InceptionV3 model
 def preprocess_image_inception_v3(image_data):
     image = Image.open(io.BytesIO(image_data))
-    image = image.resize((75, 75))
-    image = np.array(image) / 255.0
+    image = image.resize((512, 512))  # Resize the image to (512, 512)
+    image = np.array(image) / 255.0  # Normalize the image
     return image
+
 
 # Preprocess image for CNN model
 def preprocess_image_cnn(image_data):
     image = Image.open(io.BytesIO(image_data))
-    image = image.resize((32, 32))
+    image = image.resize((224, 224))
     image = np.array(image) / 255.0
     return image
 
 # Preprocess image for ResNet model
 def preprocess_image_resnet(image_data):
     image = Image.open(io.BytesIO(image_data))
-    image = image.resize((224, 224))
-    image = np.array(image) / 255.0
+    image = image.resize((224, 224))  # Resize the image to (224, 224)
+    image = np.array(image) / 255.0  # Normalize the image
     return image
 
 @app.route('/upload', methods=['POST'])
